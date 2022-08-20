@@ -1,0 +1,26 @@
+import styled from 'styled-components/native';
+import {
+  INPUT_ACTIVE_BORDER,
+  INPUT_INACTIVE_BORDER,
+  TEA_BROWN,
+  WHITE,
+} from '../../theme/colors';
+import {FONT_FAMILY_ROBOTO_REGULAR} from '../../theme/fonts';
+
+export const TextInputStyled = styled.TextInput`
+  border-width: 1px;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 20px;
+  border: ${props =>
+    props.isFocused
+      ? '2px solid ' + INPUT_ACTIVE_BORDER
+      : '1px solid ' + INPUT_INACTIVE_BORDER};
+  background-color: ${WHITE};
+`;
+
+export const Label = styled.Text`
+  font-size: 18px;
+  line-height: 40px;
+  font-family: ${FONT_FAMILY_ROBOTO_REGULAR};
+`;

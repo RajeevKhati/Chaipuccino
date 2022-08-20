@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "397598258589",
+    "project_id": "chairecipe-6ba11",
+    "storage_bucket": "chairecipe-6ba11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397598258589:android:1c29bd8abdee3129c3ab74",
+        "android_client_info": {
+          "package_name": "com.chaipuccino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397598258589-ojrpc9bsft242h5i3sdl69v0cu2fpmvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8CdJAyOzOf5086xAn42-GNe_p8kX5OCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397598258589-ojrpc9bsft242h5i3sdl69v0cu2fpmvo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
