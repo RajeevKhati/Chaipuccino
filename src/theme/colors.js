@@ -5,3 +5,4 @@ export const INPUT_ACTIVE_BACKGROUND = '#eed9c7';
 export const WHITE = '#ffffff';
 export const DARK_BROWN = '#311902';
 export const LIGHT_BROWN = '#ebdbcb';
+export const BLACK = '#000000';

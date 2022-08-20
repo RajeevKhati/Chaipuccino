@@ -1,6 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Home, Recipe} from '../screens';
+import {CookRecipe, Home, Recipe} from '../screens';
 
 const Stack = createNativeStackNavigator();
 const HomeStack = () => {
@@ -15,6 +15,11 @@ const HomeStack = () => {
         name="Recipe"
         component={Recipe}
         options={{title: 'Ingredients'}}
+      />
+      <Stack.Screen
+        name="CookRecipe"
+        component={CookRecipe}
+        options={{title: 'Cook Tea'}}
       />
     </Stack.Navigator>
   );

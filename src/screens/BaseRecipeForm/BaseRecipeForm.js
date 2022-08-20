@@ -59,7 +59,12 @@ const BaseRecipeForm = () => {
 
   const renderInput = (label, value, setValue, half = false) => (
     <InputWrapper half={half}>
-      <Input label={label} value={value} onChangeText={val => setValue(+val)} />
+      <Input
+        label={label}
+        value={value}
+        onChangeText={val => setValue(+val)}
+        keyboardType="numeric"
+      />
     </InputWrapper>
   );
 

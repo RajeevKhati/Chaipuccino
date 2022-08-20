@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import {
+  BLACK,
   INPUT_ACTIVE_BORDER,
   INPUT_INACTIVE_BORDER,
-  TEA_BROWN,
   WHITE,
 } from '../../theme/colors';
 import {FONT_FAMILY_ROBOTO_REGULAR} from '../../theme/fonts';
@@ -17,6 +17,7 @@ export const TextInputStyled = styled.TextInput`
       ? '2px solid ' + INPUT_ACTIVE_BORDER
       : '1px solid ' + INPUT_INACTIVE_BORDER};
   background-color: ${WHITE};
+  color: ${BLACK};
 `;
 
 export const Label = styled.Text`
