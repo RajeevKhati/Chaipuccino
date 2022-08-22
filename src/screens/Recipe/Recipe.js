@@ -1,9 +1,14 @@
 import React, {useContext} from 'react';
 import {View} from 'react-native';
-import Button from '../../components/Button';
 import {GlobalContext} from '../../context/Provider';
 import {navigate} from '../../service/navigation';
-import {Container, MainText, MarginLeft, SubMainText} from './Recipe.style';
+import {
+  Container,
+  MainText,
+  MarginLeft,
+  StartBtn,
+  SubMainText,
+} from './Recipe.style';
 
 const Recipe = ({route}) => {
   const {recipeState} = useContext(GlobalContext);
@@ -46,7 +51,19 @@ const Recipe = ({route}) => {
         <MainText>Chaipatti: {chaipattiQuant} gm</MainText>
         <MainText>Ginger: {gingerQuant} gm</MainText>
         <MainText>Elaichi: {elaichiQuant} gm</MainText>
-        <Button text={'Start'} onPress={() => navigate('CookRecipe')} />
+        <StartBtn
+          text={'Start'}
+          onPress={() =>
+            navigate('CookRecipe', {
+              reqMilk,
+              reqWater,
+              sugarQuant,
+              chaipattiQuant,
+              gingerQuant,
+              elaichiQuant,
+            })
+          }
+        />
       </View>
     </Container>
   );

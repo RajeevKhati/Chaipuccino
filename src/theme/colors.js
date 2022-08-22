@@ -6,3 +6,4 @@ export const WHITE = '#ffffff';
 export const DARK_BROWN = '#311902';
 export const LIGHT_BROWN = '#ebdbcb';
 export const BLACK = '#000000';
+export const DARK_BROWN_LESS = '#482721';

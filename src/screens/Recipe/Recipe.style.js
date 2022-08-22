@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Button from '../../components/Button';
 import {DARK_BROWN, LIGHT_BROWN, TEA_BROWN} from '../../theme/colors';
 import {FONT_FAMILY_ROBOTO_BOLD} from '../../theme/fonts';
 
@@ -23,4 +24,8 @@ export const SubMainText = styled(MainText)`
 
 export const MarginLeft = styled.View`
   margin-left: 30px;
+`;
+
+export const StartBtn = styled(Button)`
+  margin-top: 20px;
 `;
