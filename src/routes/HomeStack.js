@@ -10,12 +10,12 @@ const LogoTitle = ({title}) => {
   return (
     <>
       <Image
-        style={{width: 45, height: 45}}
+        style={{width: 42, height: 42}}
         source={require('../assets/images/chai-logo.png')}
       />
       <Text
         style={{
-          fontSize: 24,
+          fontSize: 22,
           color: DARK_BROWN,
           marginLeft: 10,
           fontFamily: FONT_FAMILY_ROBOTO_REGULAR,
@@ -27,13 +27,7 @@ const LogoTitle = ({title}) => {
 };
 const HomeStack = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#ffffff',
-        },
-      }}
-      initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={Home}
