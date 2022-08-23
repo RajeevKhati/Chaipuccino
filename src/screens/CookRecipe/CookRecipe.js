@@ -12,6 +12,7 @@ import {
   TimerContainer,
   TimerText,
 } from './CookRecipe.style';
+import Sound from 'react-native-sound';
 
 const CookRecipe = ({route}) => {
   const {recipeState} = useContext(GlobalContext);
@@ -40,33 +41,52 @@ const CookRecipe = ({route}) => {
   const waterIncrementRef = useRef(null);
   const isFirstCall = useRef(true);
 
-  useEffect(
-    () => () => {
-      milkIncrementRef.current && clearInterval(milkIncrementRef.current);
-      waterIncrementRef.current && clearInterval(waterIncrementRef.current);
-    },
-    [],
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const alarm = useRef(
+    new Sound('alarm.wav', Sound.MAIN_BUNDLE, error => {
+      if (error) {
+        console.log('failed to load the sound', error);
+        return;
+      }
+    }),
   );
 
   useEffect(() => {
-    if (milkTimer === 0) clearInterval(milkIncrementRef.current);
-    if (waterTimer === 0) clearInterval(waterIncrementRef.current);
+    return () => {
+      milkIncrementRef.current && clearInterval(milkIncrementRef.current);
+      waterIncrementRef.current && clearInterval(waterIncrementRef.current);
+      alarm.current.release();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (milkTimer === 0) {
+      clearInterval(milkIncrementRef.current);
+      handleAlarm();
+    }
+    if (waterTimer === 0) {
+      clearInterval(waterIncrementRef.current);
+      handleAlarm();
+    }
     if (milkTimer === waterTimer - 1 && isFirstCall.current) {
       handleWaterStart();
       isFirstCall.current = false;
     }
+    if (milkTimer - 30 === waterTimer) handleAlarm();
   }, [milkTimer, waterTimer]);
 
   const formatTime = timer => {
-    const getSeconds = `0${timer % 60}`.slice(-2);
-    const minutes = `${Math.floor(timer / 60)}`;
+    console.log(timer);
+    const getSeconds = `0${Math.round(timer % 60)}`.slice(-2);
+    const minutes = `${Math.round(timer / 60)}`;
     const getMinutes = `0${minutes % 60}`.slice(-2);
-    const getHours = `0${Math.floor(timer / 3600)}`.slice(-2);
+    const getHours = `0${Math.round(timer / 3600)}`.slice(-2);
 
     return `${getHours} : ${getMinutes} : ${getSeconds}`;
   };
 
-  const renderButton = (text, onPress, isDisabled) => (
+  const renderButton = (text, onPress, isDisabled = false) => (
     <Button text={text} onPress={onPress} disabled={isDisabled} />
   );
 
@@ -136,6 +156,18 @@ const CookRecipe = ({route}) => {
     isFirstCall.current = true;
   };
 
+  const handleAlarm = (startAlarm = true) => {
+    if (startAlarm) {
+      // Play the sound with infinite loop
+      if (isPlaying) return;
+      alarm.current.setNumberOfLoops(-1);
+      alarm.current.play();
+    } else {
+      alarm.current.stop();
+    }
+    setIsPlaying(prev => !prev);
+  };
+
   /**Water */
   return (
     <Container>
@@ -187,6 +219,7 @@ const CookRecipe = ({route}) => {
           </TimerButtonWrapper>
           {/* {water} */}
         </TimerContainer>
+        {renderButton('Stop Alarm', () => handleAlarm(false), !isPlaying)}
       </ContentContainer>
     </Container>
   );
