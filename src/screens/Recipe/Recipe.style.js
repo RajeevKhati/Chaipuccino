@@ -11,7 +11,7 @@ export const Container = styled.View`
 `;
 
 export const MainText = styled.Text`
-  font-size: 28px;
+  font-size: 25px;
   color: ${DARK_BROWN};
   letter-spacing: 1px;
   line-height: 40px;

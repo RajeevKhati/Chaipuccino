@@ -31,15 +31,15 @@ const CookRecipe = ({route}) => {
    * Duration is calculated solely based on quantity.
    */
   const getTimerInSecs = quantInML => ((quantInML * heatDuration) / 1000) * 60;
-  const milkInitialTimerRef = useRef(getTimerInSecs(reqMilk));
-  const waterInitialTimerRef = useRef(getTimerInSecs(reqWater));
+  const milkInitialTimerRef = useRef(Math.round(getTimerInSecs(reqMilk)));
+  const waterInitialTimerRef = useRef(Math.round(getTimerInSecs(reqWater)));
 
   const [milkTimer, setMilkTimer] = useState(milkInitialTimerRef.current);
   const [waterTimer, setWaterTimer] = useState(waterInitialTimerRef.current);
   const [isActive, setIsActive] = useState({milk: false, water: false});
   const milkIncrementRef = useRef(null);
   const waterIncrementRef = useRef(null);
-  const isFirstCall = useRef(true);
+  const isFirstCall = useRef({water: true, timer: true});
 
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -69,15 +69,21 @@ const CookRecipe = ({route}) => {
       clearInterval(waterIncrementRef.current);
       handleAlarm();
     }
-    if (milkTimer === waterTimer - 1 && isFirstCall.current) {
+    if (milkTimer === waterTimer - 1 && isFirstCall.current.water) {
       handleWaterStart();
-      isFirstCall.current = false;
+      isFirstCall.current = {...isFirstCall.current, water: false};
     }
-    if (milkTimer - 30 === waterTimer) handleAlarm();
+    if (
+      milkTimer - 30 <= waterTimer &&
+      isActive.milk &&
+      isFirstCall.current.timer
+    ) {
+      handleAlarm();
+      isFirstCall.current = {...isFirstCall.current, timer: false};
+    }
   }, [milkTimer, waterTimer]);
 
   const formatTime = timer => {
-    console.log(timer);
     const getSeconds = `0${Math.round(timer % 60)}`.slice(-2);
     const minutes = `${Math.round(timer / 60)}`;
     const getMinutes = `0${minutes % 60}`.slice(-2);
@@ -121,7 +127,7 @@ const CookRecipe = ({route}) => {
       return {...prev, milk: false};
     });
     setMilkTimer(milkInitialTimerRef.current);
-    isFirstCall.current = true;
+    isFirstCall.current = {...isFirstCall.current, water: true, timer: true};
   };
   /**milk */
 
@@ -131,7 +137,7 @@ const CookRecipe = ({route}) => {
   };
 
   const handleWaterStart = () => {
-    if (waterTimer <= 0 || isActive.water) return;
+    if (waterTimer <= -1 || isActive.water) return;
     setIsActive(prev => {
       return {...prev, water: true};
     });
@@ -153,7 +159,7 @@ const CookRecipe = ({route}) => {
       return {...prev, water: false};
     });
     setWaterTimer(waterInitialTimerRef.current);
-    isFirstCall.current = true;
+    isFirstCall.current = {...isFirstCall.current, water: true};
   };
 
   const handleAlarm = (startAlarm = true) => {

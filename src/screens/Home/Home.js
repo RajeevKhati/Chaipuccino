@@ -38,7 +38,6 @@ const Home = () => {
   const onMLClick = () => {
     if (quant.unit === 'ml') return;
     setQuant(prev => {
-      console.log(typeof prev, prev, +prev.val * 1000);
       const litreToML = +prev.val * 1000;
       return {val: getDecimal(litreToML) + '', unit: 'ml'};
     });
@@ -46,27 +45,13 @@ const Home = () => {
 
   const onCupsClick = () => {
     setInputVal(prev => {
-      return {...prev, selected: 'cups', cups: prev.milk};
-    });
-    setQuant(prev => {
-      const currentInputVal = +inputVal.milk;
-      const cupsToML = currentInputVal * 50;
-      const cupsToQuantVal = prev.unit === 'ml' ? cupsToML : cupsToML / 1000;
-      return {...prev, val: getDecimal(cupsToQuantVal) + ''};
+      return {...prev, selected: 'cups', cups: +prev.milk / 50};
     });
   };
 
   const onMilkClick = () => {
     setInputVal(prev => {
-      return {...prev, selected: 'milk', milk: prev.cups};
-    });
-    setQuant(prev => {
-      const currentInputVal = +inputVal.cups;
-      const avlMilk = currentInputVal;
-      const finalMilk = (80 / 100) * avlMilk;
-      const chaiQuant = (100 / 60) * finalMilk;
-      const finalQuantVal = quant.unit === 'ml' ? chaiQuant : chaiQuant / 1000;
-      return {...prev, val: getDecimal(finalQuantVal) + ''};
+      return {...prev, selected: 'milk', milk: +prev.cups * 50 + ''};
     });
   };
 
@@ -83,7 +68,7 @@ const Home = () => {
               });
             else
               setInputVal(prev => {
-                return {...prev, milk: (currentML * 60) / 100 + ''};
+                return {...prev, milk: (currentML * 6) / 8 + ''};
               });
             setQuant(prev => {
               return {...prev, val};
