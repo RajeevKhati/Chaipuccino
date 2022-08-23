@@ -166,12 +166,12 @@ const CookRecipe = ({route}) => {
     if (startAlarm) {
       // Play the sound with infinite loop
       if (isPlaying) return;
-      alarm.current.setNumberOfLoops(-1);
-      alarm.current.play();
+      alarm.current.setNumberOfLoops(-1).play();
+      setIsPlaying(true);
     } else {
       alarm.current.stop();
+      setIsPlaying(false);
     }
-    setIsPlaying(prev => !prev);
   };
 
   /**Water */
