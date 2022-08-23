@@ -13,6 +13,7 @@ const Input = ({label, value, ...props}) => {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         value={value && value + ''}
+        maxLength={12}
         {...props}
       />
     </>

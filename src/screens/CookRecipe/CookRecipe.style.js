@@ -16,14 +16,14 @@ export const ContentContainer = styled.View`
 `;
 
 export const Ingredients = styled.Text`
-  font-size: 20px;
+  font-size: 22px;
   color: ${DARK_BROWN};
   letter-spacing: 1px;
   font-family: ${FONT_FAMILY_ROBOTO_BOLD};
 `;
 
 export const ItemText = styled.Text`
-  font-size: 18px;
+  font-size: 20px;
   color: ${DARK_BROWN_LESS};
   letter-spacing: 1px;
   font-family: ${FONT_FAMILY_ROBOTO_MEDIUM};
@@ -32,13 +32,13 @@ export const ItemText = styled.Text`
 export const TimerContainer = styled.View`
   width: 100%;
   align-items: center;
-  margin: 15px 0px;
+  margin: 20px 0px;
 `;
 
 export const TimerButtonWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  width: 60%;
+  width: 70%;
   padding: 10px 0px 5px;
 `;
 

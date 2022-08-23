@@ -42,17 +42,6 @@ export const ButtonStyled = styled(Button)`
   border-radius: 24px;
 `;
 
-export const CupWrapper = styled.View`
-  flex: 1;
-`;
-
-export const CupText = styled.Text`
-  font-size: 28px;
-  margin-left: 10px;
-  font-family: 'Roboto-BoldItalic';
-  color: ${TEA_BROWN};
-`;
-
 export const CalcIngBtn = styled(Button)`
   border-radius: 5px;
   margin-top: 20px;

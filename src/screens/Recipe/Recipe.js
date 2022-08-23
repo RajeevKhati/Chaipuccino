@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {View} from 'react-native';
 import {GlobalContext} from '../../context/Provider';
+import {getDecimal} from '../../helpers/method';
 import {navigate} from '../../service/navigation';
 import {
   Container,
@@ -24,11 +25,11 @@ const Recipe = ({route}) => {
   } = recipeState.recipe;
 
   const {quantInML} = route.params;
-  const calcQuant = val => (val * quantInML) / stdQuantity;
-  const desiredMilk = quantInML * (milk / 100);
-  const reqMilk = desiredMilk * (100 / (100 - evapRate));
-  const desiredWater = quantInML * (water / 100);
-  const reqWater = desiredWater * (100 / (100 - evapRate));
+  const calcQuant = val => getDecimal((val * quantInML) / stdQuantity);
+  const desiredMilk = getDecimal(quantInML * (milk / 100));
+  const reqMilk = getDecimal(desiredMilk * (100 / (100 - evapRate)));
+  const desiredWater = getDecimal(quantInML * (water / 100));
+  const reqWater = getDecimal(desiredWater * (100 / (100 - evapRate)));
   const sugarQuant = calcQuant(sugar);
   const chaipattiQuant = calcQuant(chaipatti);
   const gingerQuant = calcQuant(ginger);
