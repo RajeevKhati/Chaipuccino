@@ -45,13 +45,19 @@ const Home = () => {
 
   const onCupsClick = () => {
     setInputVal(prev => {
-      return {...prev, selected: 'cups', cups: +prev.milk / 50};
+      const reqMilk = +prev.milk;
+      const desiredMilk = (80 / 100) * reqMilk;
+      const finalChai = (100 / 60) * desiredMilk;
+      return {...prev, selected: 'cups', cups: finalChai / 50 + ''};
     });
   };
 
   const onMilkClick = () => {
     setInputVal(prev => {
-      return {...prev, selected: 'milk', milk: +prev.cups * 50 + ''};
+      const finalChaiInML = +prev.cups * 50;
+      const desiredMilk = (60 / 100) * finalChaiInML;
+      const reqMilk = (100 / 80) * desiredMilk;
+      return {...prev, selected: 'milk', milk: reqMilk + ''};
     });
   };
 

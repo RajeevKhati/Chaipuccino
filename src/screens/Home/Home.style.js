@@ -1,14 +1,14 @@
 import styled from 'styled-components/native';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import {DARK_BROWN, LIGHT_BROWN, TEA_BROWN} from '../../theme/colors';
+import {DARK_BROWN, LIGHT_BROWN} from '../../theme/colors';
 import {FONT_FAMILY_ROBOTO_BOLD} from '../../theme/fonts';
 
 export const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  padding: 0px 40px;
+  padding: 0px 26px;
   background-color: ${LIGHT_BROWN};
 `;
 
@@ -19,19 +19,20 @@ export const HeaderText = styled.Text`
   margin: 15px 0px;
 `;
 
-export const InputStyled = styled(Input)`
-  flex-basis: 50%;
-`;
-
 export const RowContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  /* width: 100%; */
   margin: 10px 0px;
 `;
 
+export const InputStyled = styled(Input)`
+  flex-basis: 46%;
+`;
+
 export const ButtonWrapper = styled.View`
-  flex-basis: 50%;
+  flex-basis: 54%;
   flex-direction: row;
   justify-content: space-around;
   padding: 0px 10px;
