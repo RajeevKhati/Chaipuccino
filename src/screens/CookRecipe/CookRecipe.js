@@ -13,6 +13,7 @@ import {
   TimerText,
 } from './CookRecipe.style';
 import Sound from 'react-native-sound';
+import BackgroundTimer from 'react-native-background-timer';
 
 const CookRecipe = ({route}) => {
   const {recipeState} = useContext(GlobalContext);
@@ -54,19 +55,21 @@ const CookRecipe = ({route}) => {
 
   useEffect(() => {
     return () => {
-      milkIncrementRef.current && clearInterval(milkIncrementRef.current);
-      waterIncrementRef.current && clearInterval(waterIncrementRef.current);
+      milkIncrementRef.current &&
+        BackgroundTimer.clearInterval(milkIncrementRef.current);
+      waterIncrementRef.current &&
+        BackgroundTimer.clearInterval(waterIncrementRef.current);
       alarm.current.release();
     };
   }, []);
 
   useEffect(() => {
     if (milkTimer === 0) {
-      clearInterval(milkIncrementRef.current);
+      BackgroundTimer.clearInterval(milkIncrementRef.current);
       handleAlarm();
     }
     if (waterTimer === 0) {
-      clearInterval(waterIncrementRef.current);
+      BackgroundTimer.clearInterval(waterIncrementRef.current);
       handleAlarm();
     }
     if (milkTimer === waterTimer - 1 && isFirstCall.current.water) {
@@ -110,7 +113,10 @@ const CookRecipe = ({route}) => {
       return {...prev, milk: true};
     });
     startMilkTimer();
-    milkIncrementRef.current = setInterval(startMilkTimer, 1000);
+    milkIncrementRef.current = BackgroundTimer.setInterval(
+      startMilkTimer,
+      1000,
+    );
   };
 
   const handleMilkPause = () => {
@@ -118,11 +124,11 @@ const CookRecipe = ({route}) => {
     setIsActive(prev => {
       return {...prev, milk: false};
     });
-    clearInterval(milkIncrementRef.current);
+    BackgroundTimer.clearInterval(milkIncrementRef.current);
   };
 
   const handleMilkReset = () => {
-    clearInterval(milkIncrementRef.current);
+    BackgroundTimer.clearInterval(milkIncrementRef.current);
     setIsActive(prev => {
       return {...prev, milk: false};
     });
@@ -142,19 +148,22 @@ const CookRecipe = ({route}) => {
       return {...prev, water: true};
     });
     startWaterTimer();
-    waterIncrementRef.current = setInterval(startWaterTimer, 1000);
+    waterIncrementRef.current = BackgroundTimer.setInterval(
+      startWaterTimer,
+      1000,
+    );
   };
 
   const handleWaterPause = () => {
     if (waterTimer <= 0) return;
-    clearInterval(waterIncrementRef.current);
+    BackgroundTimer.clearInterval(waterIncrementRef.current);
     setIsActive(prev => {
       return {...prev, water: false};
     });
   };
 
   const handleWaterReset = () => {
-    clearInterval(waterIncrementRef.current);
+    BackgroundTimer.clearInterval(waterIncrementRef.current);
     setIsActive(prev => {
       return {...prev, water: false};
     });
