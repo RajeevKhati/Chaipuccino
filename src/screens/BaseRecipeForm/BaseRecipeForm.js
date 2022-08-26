@@ -10,7 +10,6 @@ import {
 import Input from '../../components/Input';
 import {GlobalContext} from '../../context/Provider';
 import {updateRecipe} from '../../context/actions/recipe/updateRecipe';
-import {View} from 'react-native';
 
 const BaseRecipeForm = () => {
   const {recipeState, recipeDispatch} = useContext(GlobalContext);

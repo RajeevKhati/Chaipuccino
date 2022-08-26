@@ -13,6 +13,8 @@ import {getRecipe} from '../../context/actions/recipe/getRecipe';
 import {navigate} from '../../service/navigation';
 import {getDecimal} from '../../helpers/method';
 
+const ML_PER_CUP = 50;
+
 const Home = () => {
   const [quant, setQuant] = useState({val: '1', unit: 'litre'});
   const [inputVal, setInputVal] = useState({
@@ -21,7 +23,9 @@ const Home = () => {
     selected: 'cups',
   });
 
-  const {recipeDispatch} = useContext(GlobalContext);
+  const {recipeState, recipeDispatch} = useContext(GlobalContext);
+
+  const {evapRate, milk: stdMilkInPercent} = recipeState.recipe;
 
   useEffect(() => {
     getRecipe()(recipeDispatch);
@@ -46,17 +50,17 @@ const Home = () => {
   const onCupsClick = () => {
     setInputVal(prev => {
       const reqMilk = +prev.milk;
-      const desiredMilk = (80 / 100) * reqMilk;
-      const finalChai = (100 / 60) * desiredMilk;
-      return {...prev, selected: 'cups', cups: finalChai / 50 + ''};
+      const desiredMilk = ((100 - evapRate) / 100) * reqMilk;
+      const finalChai = (100 / stdMilkInPercent) * desiredMilk;
+      return {...prev, selected: 'cups', cups: finalChai / ML_PER_CUP + ''};
     });
   };
 
   const onMilkClick = () => {
     setInputVal(prev => {
-      const finalChaiInML = +prev.cups * 50;
-      const desiredMilk = (60 / 100) * finalChaiInML;
-      const reqMilk = (100 / 80) * desiredMilk;
+      const finalChaiInML = +prev.cups * ML_PER_CUP;
+      const desiredMilk = (stdMilkInPercent / 100) * finalChaiInML;
+      const reqMilk = (100 / (100 - evapRate)) * desiredMilk;
       return {...prev, selected: 'milk', milk: reqMilk + ''};
     });
   };
@@ -67,14 +71,16 @@ const Home = () => {
       <RowContainer>
         <InputStyled
           onChangeText={val => {
-            const currentML = quant.unit === 'ml' ? +val : +val * 1000;
+            const finalChaiInML = quant.unit === 'ml' ? +val : +val * 1000;
             if (inputVal.selected === 'cups')
               setInputVal(prev => {
-                return {...prev, cups: currentML / 50 + ''};
+                return {...prev, cups: finalChaiInML / ML_PER_CUP + ''};
               });
             else
               setInputVal(prev => {
-                return {...prev, milk: (currentML * 6) / 8 + ''};
+                const desiredMilk = (stdMilkInPercent / 100) * finalChaiInML;
+                const reqMilk = (100 / (100 - evapRate)) * desiredMilk;
+                return {...prev, milk: reqMilk + ''};
               });
             setQuant(prev => {
               return {...prev, val};
@@ -100,7 +106,7 @@ const Home = () => {
         <InputStyled
           onChangeText={val => {
             if (inputVal.selected === 'cups') {
-              const cupsToML = +val * 50;
+              const cupsToML = +val * ML_PER_CUP;
               const cupsToQuantVal =
                 quant.unit === 'ml' ? cupsToML : cupsToML / 1000;
               setQuant(prev => {
@@ -112,8 +118,8 @@ const Home = () => {
               });
             } else {
               const avlMilk = +val;
-              const finalMilk = (80 / 100) * avlMilk;
-              const chaiQuant = (100 / 60) * finalMilk;
+              const finalMilk = ((100 - evapRate) / 100) * avlMilk;
+              const chaiQuant = (100 / stdMilkInPercent) * finalMilk;
               const finalQuantVal =
                 quant.unit === 'ml' ? chaiQuant : chaiQuant / 1000;
               setQuant(prev => {
