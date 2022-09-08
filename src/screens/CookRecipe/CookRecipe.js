@@ -54,8 +54,6 @@ const CookRecipe = ({route}) => {
   );
 
   useEffect(() => {
-    console.log('milk timer', milkTimer);
-    console.log('water timer', waterTimer);
     return () => {
       milkIncrementRef.current &&
         BackgroundTimer.clearInterval(milkIncrementRef.current);
