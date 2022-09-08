@@ -54,6 +54,8 @@ const CookRecipe = ({route}) => {
   );
 
   useEffect(() => {
+    console.log('milk timer', milkTimer);
+    console.log('water timer', waterTimer);
     return () => {
       milkIncrementRef.current &&
         BackgroundTimer.clearInterval(milkIncrementRef.current);
@@ -87,11 +89,9 @@ const CookRecipe = ({route}) => {
   }, [milkTimer, waterTimer]);
 
   const formatTime = timer => {
-    const getSeconds = `0${Math.round(timer % 60)}`.slice(-2);
-    const minutes = `${Math.round(timer / 60)}`;
-    const getMinutes = `0${minutes % 60}`.slice(-2);
-    const getHours = `0${Math.round(timer / 3600)}`.slice(-2);
-
+    const getSeconds = `0${Math.floor((timer % 3600) % 60)}`.slice(-2);
+    const getMinutes = `0${Math.floor((timer % 3600) / 60)}`.slice(-2);
+    const getHours = `0${Math.floor(timer / 3600)}`.slice(-2);
     return `${getHours} : ${getMinutes} : ${getSeconds}`;
   };
 
