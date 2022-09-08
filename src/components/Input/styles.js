@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import {
   BLACK,
+  DARK_BROWN,
   INPUT_ACTIVE_BORDER,
   INPUT_INACTIVE_BORDER,
   WHITE,
@@ -21,7 +22,9 @@ export const TextInputStyled = styled.TextInput`
 `;
 
 export const Label = styled.Text`
-  font-size: 18px;
+  font-size: 20px;
   line-height: 40px;
+  font-weight: 700;
   font-family: ${FONT_FAMILY_ROBOTO_REGULAR};
+  color: ${DARK_BROWN};
 `;

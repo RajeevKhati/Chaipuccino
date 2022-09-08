@@ -5,6 +5,7 @@ import {
   CalcIngBtn,
   Container,
   HeaderText,
+  InputLabel,
   InputStyled,
   RowContainer,
 } from './Home.style';
@@ -67,7 +68,8 @@ const Home = () => {
 
   return (
     <Container>
-      <HeaderText>Desired Output in {quant.unit}</HeaderText>
+      <HeaderText>IT'S CHAI TIME!!</HeaderText>
+      <InputLabel>Desired Output in {quant.unit}</InputLabel>
       <RowContainer>
         <InputStyled
           onChangeText={val => {
@@ -102,6 +104,7 @@ const Home = () => {
           />
         </ButtonWrapper>
       </RowContainer>
+      <InputLabel>Available (1 cup is 50ml, milk is in ml)</InputLabel>
       <RowContainer>
         <InputStyled
           onChangeText={val => {
